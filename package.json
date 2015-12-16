@@ -1,6 +1,6 @@
 {
   "name": "promise-delegates",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Extend the promise API with methods and accessors that delegate to the future value.",
   "license": "MIT",
   "repository": "jamestalmage/promise-delegates",
