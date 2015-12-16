@@ -32,6 +32,10 @@ somePromise.bar;
 
 Every method has a nearly identical API. More detailed explanations with examples are in the sections below.
 
+- `config.apply(promiseInstance)` - Extend a single promise instance.
+
+- `config.wrap(promiseFn)` - Wrap a function and extend all returned promises.
+
 - `config.getter(propertyName, [childConfig])` - Define a getter that returns a promise for a member of the resolved value. Optionally extend the returned promise with another config.
 
 - `config.setter(propertyName)` - Define a setter. Setters can not specify a return value, so a promise is not returned.
