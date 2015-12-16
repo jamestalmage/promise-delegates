@@ -47,7 +47,7 @@ Every method has a nearly identical API. More detailed explanations with example
 - `config.chain(methodName)` - Same as `config.method`, but returns the `basePromise`` for chaining. Useful if your promise returns an eventEmitter, etc.
 
 
-## Child Configs and chaining
+## Child Configs and Chaining
 
 Child configs become very helpful in allowing you to build expressive chainable API's'.
 
@@ -100,13 +100,19 @@ Creates a new `delegateConfig` instance for defining a set of extensions to a pr
 
 ### delegateConfig.apply(basePromise)
 
+Returns: `basePromise`
+
 Applies the config built using the methods below `basePromise`. `basePromise` will be extended with the property accessors and methods defined in the config.
 
-### wrappedFn = delegateConfig.wrap(promiseFn, [ctx])
+### delegateConfig.wrap(promiseFn, [ctx])
 
-Wrap a promise returning function. All promises returned from `wrappedFn` will be extended using the config.
+Returns: `wrappedFn` - a wrapped function.
+
+Wrap a promise returning function. All promises returned from `wrappedFn` will be extended using config. The optional `ctx` command can be used to bind the `this` value that is used when calling `promiseFn`.
 
 ### delegateConfig.getter(propertyName, [childConfig])
+
+*Chainable*
 
 Defines a property getter on the `basePromise`. The value returned by the getter is a promise for a property on the resolved value of `basePromise`.
 
@@ -138,6 +144,8 @@ If supplied, the promise returned from the getter will be extended with this con
 
 ### delegateConfig.setter(propertyName)
 
+*Chainable*
+
 Defines a property setter on the `basePromise`. Setters can not specify return a value. 
 
   ```js
@@ -156,9 +164,13 @@ is equivalent to:
 
 ### delegateConfig.access(propertyName, [childConfig])
 
-Defines a getter and setter on the `basePromise`. If specified, `childConfig` is only applied to the getter.
+*Chainable*
+
+Defines a getter and setter on the `basePromise`. `childConfig` only applies to the getter.
 
 ### delegateConfig.method(propertyName, [childConfig])
+
+*Chainable*
 
 Defines a method on the `basePromise`. When invoked, the method will store its arguments and perform the same invocation on the resolved value of `basePromise`. The returned value is a promise for the result of the method invocation. The returned value can optionally be extended with `childConfig`.
 
@@ -177,6 +189,8 @@ is equivalent to:
   ```
 
 ### delegateConfig.chain(propertyName)
+
+*Chainable*
 
 Defines a method on the `basePromise`. When invoked, the method will store its arguments and perform the same invocation on the resolved value of `basePromise`. The returned value is `basePromise`. This is useful if the promises resolved value has chainable methods (methods that return the invocation target).
 
