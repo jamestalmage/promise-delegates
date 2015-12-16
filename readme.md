@@ -30,11 +30,11 @@ somePromise.bar;
 
 ## API Summary
 
-Every method has a nearly identical API. More detailed explanations with examples are in the sections below.
+Most methods have very similar signatures. Unless otherwise noted, every method is chainable (returns `config` itself). More detailed explanations and examples are below. 
 
-- `config.apply(promiseInstance)` - Extend a single promise instance.
+- `config.apply(promiseInstance)` - Extends a single promise instance. Returns `promiseInstance`
 
-- `config.wrap(promiseFn)` - Wrap a function and extend all returned promises.
+- `config.wrap(promiseFn)` - Returns a wrapped version of `promiseFn` that will extend every returned promise as defined in `config`.
 
 - `config.getter(propertyName, [childConfig])` - Define a getter that returns a promise for a member of the resolved value. Optionally extend the returned promise with another config.
 
