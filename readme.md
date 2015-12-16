@@ -1,4 +1,4 @@
-# promise-delegates [![Build Status](https://travis-ci.org/jamestalmage/promise-delegates.svg?branch=master)](https://travis-ci.org/jamestalmage/promise-delegates)
+# promise-delegates [![Build Status](https://travis-ci.org/jamestalmage/promise-delegates.svg?branch=master)](https://travis-ci.org/jamestalmage/promise-delegates) [![Coverage Status](https://coveralls.io/repos/jamestalmage/promise-delegates/badge.svg?branch=master&service=github)](https://coveralls.io/github/jamestalmage/promise-delegates?branch=master)
 
 > Extend the promise API with methods and accessors that delegate to the future value.
 
@@ -53,7 +53,7 @@ Let's pretend we have an entirely async class called `Person`, with the followin
  - `father` - A property containing a promise for the persons father.
  - `child(n)` - A method that returns a promise for the persons `n`th child.
 
-No let's define a config to wrap a promise for `Person`:
+Now let's define a config to wrap a promise for `Person`:
 
   ```js
   let personConfig = delegate();
@@ -73,7 +73,7 @@ Assuming `getPerson(name)` returns a promise for a `Person`, we can do the follo
   // let's fetch my mothers, fathers, first born
   var auntSharon = getPerson('James').mother.father.child(1);
   ```
-That last line is the equivalent of the following:
+That last line is equivalent to the following:
 
   ```js
   var auntSharon = getPerson('James')
@@ -98,23 +98,27 @@ Creates a new `delegateConfig` instance for defining a set of extensions to a pr
 
 Applies the config built using the methods below `basePromise`. `basePromise` will be extended with the property accessors and methods defined in the config.
 
+### wrappedFn = delegateConfig.wrap(promiseFn, [ctx])
+
+Wrap a promise returning function. All promises returned from `wrappedFn` will be extended using the config.
+
 ### delegateConfig.getter(propertyName, [childConfig])
 
 Defines a property getter on the `basePromise`. The value returned by the getter is a promise for a property on the resolved value of `basePromise`.
 
-```js
-delegate().getter('foo').apply(somePromise);
+  ```js
+  delegate().getter('foo').apply(somePromise);
 
-let foo = somePromise.foo; 
-```
+  let foo = somePromise.foo; 
+  ```
 
 is equivalent to:
 
-```js
-let foo = somePromise.then(function (result) {
-  return result.foo;
-});
-```
+  ```js
+  let foo = somePromise.then(function (result) {
+    return result.foo;
+  });
+  ```
 
 ##### propertyName
 
@@ -132,19 +136,19 @@ If supplied, the promise returned from the getter will be extended with this con
 
 Defines a property setter on the `basePromise`. Setters can not specify return a value. 
 
-```js
-delegate().setter('foo').apply(somePromise);
+  ```js
+  delegate().setter('foo').apply(somePromise);
 
-somePromise.foo = 'bar'; 
-```
+  somePromise.foo = 'bar'; 
+  ```
 
 is equivalent to:
 
-```js
-somePromise.then(function (result) {
-  result.foo = 'bar';
-});
-```
+  ```js
+  somePromise.then(function (result) {
+    result.foo = 'bar';
+  });
+  ```
 
 ### delegateConfig.access(propertyName, [childConfig])
 
@@ -154,29 +158,33 @@ Defines a getter and setter on the `basePromise`. If specified, `childConfig` is
 
 Defines a method on the `basePromise`. When invoked, the method will store its arguments and perform the same invocation on the resolved value of `basePromise`. The returned value is a promise for the result of the method invocation. The returned value can optionally be extended with `childConfig`.
 
-```js
-delegate().method('foo').apply(somePromise);
+  ```js
+  delegate().method('foo').apply(somePromise);
 
-let foo = somePromise.foo('bar', 'baz'); 
-```
+  let foo = somePromise.foo('bar', 'baz'); 
+  ```
 
 is equivalent to:
 
-```js
-let foo = somePromise.then(function (result) {
-  return result.foo('bar', 'baz');
-});
-```
+  ```js
+  let foo = somePromise.then(function (result) {
+    return result.foo('bar', 'baz');
+  });
+  ```
 
 ### delegateConfig.chain(propertyName)
 
-Defines a method on the `basePromise`. When invoked, the method will store its arguments and perform the same invocation on the resolved value of `basePromise`. The returned value is `basePromise`. This is useful for method chaining.
+Defines a method on the `basePromise`. When invoked, the method will store its arguments and perform the same invocation on the resolved value of `basePromise`. The returned value is `basePromise`. This is useful if the promises resolved value has chainable methods (methods that return the invocation target).
 
-```js
-delegate().chain('foo').apply(somePromise);
+  ```js
+  // assume promiseFn returns promises that resolve to an eventEmitters
+  promiseFn = delegate().chain('on').wrap(promiseFn);
 
-assert(somePromise === somePromise.foo('bar')); 
-```
+  promiseFn('foo')
+    .on('some-event', ...)
+    .on('other-event', ...)
+    .then(...) 
+  ```
 
 ## License
 
