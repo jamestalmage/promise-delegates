@@ -73,7 +73,7 @@ Assuming `getPerson(name)` returns a promise for a `Person`, we can do the follo
 
   ```js
   // wrap the promising returning function.
-  getPerson = config.wrap(getPerson);
+  getPerson = personConfig.wrap(getPerson);
   
   // let's fetch my mothers, fathers, first born
   var auntSharon = getPerson('James').mother.father.child(1);
