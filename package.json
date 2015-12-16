@@ -1,0 +1,39 @@
+{
+  "name": "promise-delegates",
+  "version": "0.0.0",
+  "description": "Extend the promise API with methods and accessors that delegate to the future value.",
+  "license": "MIT",
+  "repository": "jamestalmage/promise-delegates",
+  "author": {
+    "name": "James Talmage",
+    "email": "james@talmage.io",
+    "url": "github.com/jamestalmage"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "xo && nyc --reporter=lcov --reporter=text ava"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "promise",
+    "chaining",
+    "delegate",
+    "accessor"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "^0.8.0",
+    "coveralls": "^2.11.6",
+    "nyc": "^5.0.1",
+    "xo": "^0.12.1"
+  },
+  "xo": {
+    "ignores": [
+      "test.js"
+    ]
+  }
+}
