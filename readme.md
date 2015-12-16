@@ -37,15 +37,15 @@ Most methods have very similar signatures. Unless otherwise noted, every method 
 
 - `config.wrap(promiseFn)` - Returns a wrapped version of `promiseFn` that will extend every returned promise as defined in `config`.
 
-- `config.getter(propertyName, [childConfig])` - Define a getter that returns a promise for a member of the resolved value. Optionally extend the returned promise with another config.
+- `config.getter(propertyName, [childConfig])` - Define a getter that returns a promise for a member of the resolved value.
 
 - `config.setter(propertyName)` - Define a setter. Setters can not specify a return value, so a promise is not returned.
 
 - `config.access(propertyName, [childConfig])` - Define a getter and setter. `childConfig` only applies to the getter.
   
-- `config.method(methodName, [childConfig])` - Store the args, and call the method on the resolved value. Returns a promise for the result of the method invocation. Optionally extend the r
+- `config.method(methodName, [childConfig])` - Store the args, and call the method on the resolved value.
 
-- `config.chain(methodName)` - Same as `config.method`, but returns the `basePromise`` for chaining. Useful if your promise returns an eventEmitter, etc.
+- `config.chain(methodName)` - Same as `config.method`, but returns the `basePromise`` for chaining. Useful if your promise resolves to an object that itself has chainable functions (i.e. a promise for an EventEmitter).
 
 
 ## Child Configs and Chaining
