@@ -2,6 +2,7 @@
 
 > Extend the promise API with methods and accessors that delegate to the future value.
 
+If you have ever used [delegates](https://www.npmjs.com/package/delegates), this API will feel very familiar. If you haven't, you probably should at least [read their documentation](https://www.npmjs.com/package/delegates) to understand the basic concept. This library is very similar, but operates on promises.
 
 ## Install
 
