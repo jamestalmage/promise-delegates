@@ -11,7 +11,7 @@ test('method - creates a deferred method execution and returns the result', t =>
 	t.plan(2);
 	const p = Promise.resolve({
 		foo: function () {
-			t.same(slice.call(arguments), ['bar', 'baz']);
+			t.deepEqual(slice.call(arguments), ['bar', 'baz']);
 			return 'foo';
 		}
 	});
@@ -25,7 +25,7 @@ test('chain - like method, but returns the same promise for chaining', t => {
 	t.plan(3);
 	const p = Promise.resolve({
 		foo: function () {
-			t.same(slice.call(arguments), ['bar', 'baz']);
+			t.deepEqual(slice.call(arguments), ['bar', 'baz']);
 			this.callCount++;
 		},
 		callCount: 0
